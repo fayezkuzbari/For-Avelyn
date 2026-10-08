@@ -1,1 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>A Little Surprise for Avelyn ✨</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 20%, #fff1f2 0%, #ffe4e6 50%, #fecdd3 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-serif {
+      font-family: 'Playfair Display', serif;
+    }
+    .ticket-notch-left {
+      position: absolute;
+      left: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      background: #fecdd3;
+      border-radius: 9999px;
+      box-shadow: inset -2px 0 4px rgba(0,0,0,0.06);
+    }
+    .ticket-notch-right {
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      background: #fecdd3;
+      border-radius: 9999px;
+      box-shadow: inset 2px 0 4px rgba(0,0,0,0.06);
+    }
+    .floating-petal {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(105vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center p-4 relative selection:bg-rose-200">
 
+  <!-- Petals Container -->
+  <div id="petals-container"></div>
+
+  <!-- Main Container -->
+  <main class="w-full max-w-md relative z-10 my-6">
+
+    <!-- STEP 1: Sealed Envelope -->
+    <div id="step-envelope" class="transition-all duration-700 transform flex flex-col items-center">
+      <div class="bg-white/90 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-rose-100 text-center w-full relative overflow-hidden">
+        <div class="absolute -top-12 -right-12 w-32 h-32 bg-rose-200/40 rounded-full blur-2xl"></div>
+        <div class="absolute -bottom-12 -left-12 w-32 h-32 bg-amber-200/40 rounded-full blur-2xl"></div>
+
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-600 text-xs font-semibold uppercase tracking-wider mb-6">
+          Special Delivery 💌
+        </div>
+
+        <h1 class="font-serif text-3xl font-bold text-gray-800 mb-2">For Avelyn</h1>
+        <p class="text-gray-500 text-sm mb-8">Someone wanted to send you something special today.</p>
+
+        <!-- Wax Seal Button -->
+        <button id="open-seal-btn" class="group relative inline-flex items-center justify-center focus:outline-none transition-transform active:scale-95">
+          <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-rose-700 via-rose-600 to-rose-400 text-white shadow-xl shadow-rose-600/30 flex flex-col items-center justify-center border-4 border-rose-300/40 group-hover:scale-105 transition-all">
+            <span class="text-2xl">💌</span>
+            <span class="text-[10px] tracking-widest font-bold uppercase mt-1">Open</span>
+          </div>
+          <span class="absolute -bottom-6 text-xs text-rose-500 font-medium animate-pulse">Tap to open</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2: The Heartfelt Letter -->
+    <div id="step-letter" class="hidden opacity-0 transition-all duration-700 transform flex flex-col items-center">
+      <div class="bg-white/95 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-rose-100 w-full relative">
+        <div class="flex items-center justify-between border-b border-rose-100 pb-4 mb-6">
+          <span class="text-xs font-semibold text-rose-500 uppercase tracking-wider">A Little Note For You</span>
+          <span class="text-xs text-gray-400">1 Week Milestone ✨</span>
+        </div>
+
+        <div class="font-serif text-gray-800 text-lg leading-relaxed space-y-4">
+          <p class="text-xl font-bold text-rose-950">Dear Avelyn,</p>
+          <p>
+            By tomorrow, we will have known each other for a whole week. It might not seem like a long time to the rest of the world, but I’m honestly so grateful for every day of it and really excited for what’s ahead.
+          </p>
+          <p>
+            I’ve seen how hard you worked this entire week, and I just wanted to tell you how proud of you I am. You constantly give your best, and you truly deserve to pause, unwind, and be taken care of.
+          </p>
+          <p class="text-base text-gray-600 italic">
+            So, I put together a little surprise for you...
+          </p>
+        </div>
+
+        <div class="mt-8 text-center">
+          <button id="see-gift-btn" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white font-semibold text-base shadow-lg shadow-rose-500/25 hover:shadow-rose-500/40 transition-all active:scale-[0.98]">
+            Reveal Your Gift ✨
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: The Spa Pass & Runaway Button -->
+    <div id="step-pass" class="hidden opacity-0 transition-all duration-700 transform flex flex-col items-center">
+      
+      <!-- VIP Spa Voucher Card -->
+      <div class="bg-white rounded-3xl shadow-2xl border border-amber-200/80 w-full relative overflow-hidden mb-6">
+        <div class="ticket-notch-left"></div>
+        <div class="ticket-notch-right"></div>
+
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 text-amber-50 p-6 text-center relative">
+          <div class="text-[11px] font-bold tracking-widest uppercase text-amber-200 mb-1">VIP Pampering Pass</div>
+          <h2 class="font-serif text-2xl font-bold tracking-tight">Attiya Spa & Wellness</h2>
+          <p class="text-xs text-amber-100/90 mt-1">Milan Square, Kuching</p>
+        </div>
+
+        <!-- Ticket Body -->
+        <div class="p-6 space-y-4">
+          <div class="flex justify-between items-center text-sm border-b border-gray-100 pb-3">
+            <span class="text-gray-400 font-medium">Guest of Honor</span>
+            <span class="font-bold text-gray-800">Avelyn</span>
+          </div>
+
+          <div class="flex justify-between items-center text-sm border-b border-gray-100 pb-3">
+            <span class="text-gray-400 font-medium">Treatment</span>
+            <span class="font-bold text-rose-600 text-right">Signature Ombak Massage</span>
+          </div>
+
+          <div class="flex justify-between items-center text-sm border-b border-gray-100 pb-3">
+            <span class="text-gray-400 font-medium">Experience Details</span>
+            <span class="text-gray-600 text-xs text-right max-w-[180px]">Deep Lomi-Lomi technique with warm hot stones to melt away all the week's tension</span>
+          </div>
+
+          <div class="bg-amber-50 rounded-2xl p-4 border border-amber-100 text-center">
+            <p class="text-xs text-amber-800 font-medium leading-relaxed">
+              ✨ Everything is booked and taken care of for you. All you have to do is show up, breathe, and enjoy!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons Container -->
+      <div id="actions-wrapper" class="w-full relative min-h-[140px] flex flex-col items-center justify-center gap-3">
+        <!-- Accept Button -->
+        <button id="accept-btn" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-base shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/35 transition-all active:scale-[0.98] z-10">
+          Accept My Pampering Day 💖
+        </button>
+
+        <!-- Runaway Button -->
+        <button id="decline-btn" class="py-3 px-6 rounded-xl bg-gray-100 text-gray-500 text-xs font-semibold transition-all border border-gray-200 shadow-sm cursor-pointer whitespace-nowrap">
+          I'll pass 🙅‍♀️
+        </button>
+      </div>
+
+      <!-- Final Celebration Card (Hidden until Accept clicked) -->
+      <div id="accepted-message" class="hidden w-full bg-white/95 rounded-3xl p-8 border border-emerald-100 text-center shadow-xl">
+        <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+          💆🏻‍♀️✨
+        </div>
+        <h3 class="font-serif text-2xl font-bold text-gray-800 mb-2">You Deserve It!</h3>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">
+          Can't wait for you to fully relax and enjoy your massage at Attiya Spa. Have the most peaceful pampering session! 🥰
+        </p>
+        <span class="inline-block px-4 py-2 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-full">
+          Confirmed with Love 🌸
+        </span>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    // 1. Floating Petals Animation
+    const petalsContainer = document.getElementById('petals-container');
+    const petalEmojis = ['🌸', '✨', '🤍', '🌺'];
+    for (let i = 0; i < 16; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'floating-petal';
+      petal.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDuration = (6 + Math.random() * 6) + 's';
+      petal.style.animationDelay = (Math.random() * 5) + 's';
+      petal.style.fontSize = (12 + Math.random() * 14) + 'px';
+      petalsContainer.appendChild(petal);
+    }
+
+    // 2. Navigation Steps
+    const stepEnvelope = document.getElementById('step-envelope');
+    const stepLetter = document.getElementById('step-letter');
+    const stepPass = document.getElementById('step-pass');
+
+    document.getElementById('open-seal-btn').addEventListener('click', () => {
+      confetti({ particleCount: 30, spread: 60, origin: { y: 0.6 } });
+      stepEnvelope.classList.add('opacity-0', 'scale-95');
+      setTimeout(() => {
+        stepEnvelope.classList.add('hidden');
+        stepLetter.classList.remove('hidden');
+        setTimeout(() => {
+          stepLetter.classList.remove('opacity-0');
+        }, 50);
+      }, 400);
+    });
+
+    document.getElementById('see-gift-btn').addEventListener('click', () => {
+      confetti({ particleCount: 40, spread: 70, origin: { y: 0.6 } });
+      stepLetter.classList.add('opacity-0', 'scale-95');
+      setTimeout(() => {
+        stepLetter.classList.add('hidden');
+        stepPass.classList.remove('hidden');
+        setTimeout(() => {
+          stepPass.classList.remove('opacity-0');
+        }, 50);
+      }, 400);
+    });
+
+    // 3. Runaway Button Dodge Engine
+    const declineBtn = document.getElementById('decline-btn');
+    const messages = [
+      "Nice try! 😉",
+      "You deserve this! ✨",
+      "Not an option today! 💆🏻‍♀️",
+      "Error: Hard work must be rewarded!",
+      "Almost got it! 🏃‍♀️",
+      "Nope, you're getting pampered! 💖"
+    ];
+    let msgIndex = 0;
+
+    function dodgeButton(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      // Random position within safe mobile view bounds
+      const maxX = window.innerWidth - declineBtn.offsetWidth - 30;
+      const maxY = window.innerHeight - declineBtn.offsetHeight - 30;
+
+      const randomX = Math.max(15, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(15, Math.floor(Math.random() * maxY));
+
+      declineBtn.style.position = 'fixed';
+      declineBtn.style.left = `${randomX}px`;
+      declineBtn.style.top = `${randomY}px`;
+      declineBtn.style.zIndex = '9999';
+
+      // Cycle teasing messages
+      msgIndex = (msgIndex + 1) % messages.length;
+      declineBtn.innerText = messages[msgIndex];
+    }
+
+    // Dodges both touch screens and mouse hovers instantly
+    declineBtn.addEventListener('mouseenter', dodgeButton);
+    declineBtn.addEventListener('touchstart', dodgeButton, { passive: false });
+    declineBtn.addEventListener('pointerdown', dodgeButton);
+    declineBtn.addEventListener('click', dodgeButton);
+
+    // 4. Accept Confirmation Fireworks
+    const acceptBtn = document.getElementById('accept-btn');
+    const actionsWrapper = document.getElementById('actions-wrapper');
+    const acceptedMessage = document.getElementById('accepted-message');
+
+    acceptBtn.addEventListener('click', () => {
+      // Hide buttons & show confirmation
+      actionsWrapper.classList.add('hidden');
+      declineBtn.style.display = 'none';
+      acceptedMessage.classList.remove('hidden');
+
+      // Extended Confetti Fireworks celebration
+      const duration = 3.5 * 1000;
+      const animationEnd = Date.now() + duration;
+
+      const interval = setInterval(function() {
+        const timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+        const particleCount = 50 * (timeLeft / duration);
+        confetti({
+          particleCount,
+          origin: { x: Math.random() * 0.4 + 0.1, y: Math.random() - 0.2 }
+        });
+        confetti({
+          particleCount,
+          origin: { x: Math.random() * 0.4 + 0.5, y: Math.random() - 0.2 }
+        });
+      }, 250);
+    });
+  </script>
+</body>
+</html>
